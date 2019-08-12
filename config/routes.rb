@@ -1,8 +1,11 @@
 TechReviewSite::Application.routes.draw do
+  devise_for :users
+  resources :users, only: :show
   resources :products, only: :show do
-    collection do
-      get 'search'
-    end
+    resources :reviews, only: [:new, :create]
+      collection do
+        get 'search'
+      end
   end
   root 'products#index'
 
